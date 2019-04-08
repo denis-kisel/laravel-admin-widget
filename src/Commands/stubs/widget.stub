@@ -1,0 +1,50 @@
+<?php
+namespace App\Admin\Controllers\Widgets;
+
+use Encore\Admin\Form\NestedForm;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Widgets\Box;
+use Illuminate\Http\Request;
+use DenisKisel\LaravelAdminWidget\WidgetController;
+
+Class {class} extends WidgetController
+{
+    protected $code = '{code}';
+
+    public function index(Content $content)
+    {
+        $box = new Box('{name}', 'Box content');
+        $box->solid();
+
+        return $content
+            ->header('Index')
+            ->description('description')
+            ->body($box->content($this->form()));
+    }
+
+    public function form()
+    {
+        $data = $this->widgetRepository->getArrayDataByCode($this->code);
+        $form = new \Encore\Admin\Widgets\Form($data);
+
+        $form->text('name', __('admin.name'));
+
+        $form->action(url()->current());
+
+        return $form->render();
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        //$data['image'] = $this->resolveImage($data, 'image');
+
+        //if (!empty($data['icons'])) {
+        //    foreach ($data['icons'] as $key => &$item) {
+        //        $item['icon'] = $this->resolveImage($data, 'icons.' . $key . '.icon');
+        //    }
+        //}
+
+        $this->widgetRepository->store($this->code, $data);
+    }
+}
