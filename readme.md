@@ -1,6 +1,6 @@
 # LaravelAdminWidget
 
-Package for laravel admin.
+Package for laravel-admin.
 
 ## Installation
 
@@ -24,14 +24,15 @@ $  php artisan vendor:publish --provider="DenisKisel\\LaravelAdminWidget\\Larave
 ```
 
 ## Usage
-Make widget by code
+Make widget by code(underscore)
 ``` bash
 $ php artisan admin:widget slider
 ```
 
 Fill generated file by path: app/Admin/Controllers/Widgets/SliderWidget.php. You can view example file in the same dir.
 
-In the address link
+
+Widget link. You can replace link in the app/Admin/routes.php file.
 ``` bash
 site.com/admin/slider-widget
 ```
