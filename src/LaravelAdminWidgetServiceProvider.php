@@ -21,7 +21,7 @@ class LaravelAdminWidgetServiceProvider extends ServiceProvider
     {
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'deniskisel');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'deniskisel');
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+//        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         // Publishing is only necessary when using the CLI.
@@ -63,6 +63,10 @@ class LaravelAdminWidgetServiceProvider extends ServiceProvider
         // Publishing example file
         $this->publishes([
             __DIR__ . '/../resources/example/' => __DIR__ . '/../../../../app/Admin/Controllers/Widgets/',
+        ]);
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/' => __DIR__ . '/../../../../database/migrations/',
         ]);
 
         $this->prepareRoute();
