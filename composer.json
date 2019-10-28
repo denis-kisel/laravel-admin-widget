@@ -11,7 +11,7 @@
     "homepage": "https://github.com/denis-kisel/laravel-admin-widget",
     "keywords": ["Laravel", "LaravelAdminWidget"],
     "require": {
-        "illuminate/support": "~6",
+        "illuminate/support": ">=5.4",
         "denis-kisel/summernote": "*",
         "denis-kisel/repeator": "*"
     },
