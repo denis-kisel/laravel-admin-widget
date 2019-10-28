@@ -1,6 +1,7 @@
 {
     "name": "denis-kisel/laravel-admin-widget",
     "description": "Widget for laravel admin",
+    "license": "MIT",
     "authors": [
         {
             "name": "Denis Kisel",
