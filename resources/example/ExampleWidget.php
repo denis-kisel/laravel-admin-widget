@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\Controllers\Widgets;
 
+use DenisKisel\LaravelAdminWidget\Facade\Widget;
 use DenisKisel\LaravelAdminWidget\WidgetController;
 use Encore\Admin\Form\NestedForm;
 use Encore\Admin\Layout\Content;
@@ -24,7 +25,7 @@ Class ExampleWidget extends WidgetController
 
     public function form()
     {
-        $data = $this->widgetRepository->getArrayDataByCode($this->code);
+        $data = Widget::getArray($this->code);
         $form = new \Encore\Admin\Widgets\Form($data);
 
         $form->text('name', __('admin.name'));
@@ -59,6 +60,6 @@ Class ExampleWidget extends WidgetController
             }
         }
 
-        $this->widgetRepository->store($this->code, $data);
+        Widget::put($this->code, $data);
     }
 }

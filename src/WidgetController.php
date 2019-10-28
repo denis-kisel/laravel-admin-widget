@@ -2,18 +2,12 @@
 namespace DenisKisel\LaravelAdminWidget;
 
 use App\Http\Controllers\Controller;
-use DenisKisel\LaravelAdminWidget\Repositories\WidgetRepository;
+use DenisKisel\LaravelAdminWidget\Facade\Widget;
 use Illuminate\Http\UploadedFile;
 
 Class WidgetController extends Controller
 {
     protected $code = '';
-    protected $widgetRepository = null;
-
-    public function __construct(WidgetRepository $widgetRepository)
-    {
-        $this->widgetRepository = $widgetRepository;
-    }
 
     /**
      * @param $requestData
@@ -23,7 +17,7 @@ Class WidgetController extends Controller
      */
     public function resolveImage($requestData, $fieldName, $size = null)
     {
-        $widgetData = $this->widgetRepository->getArrayDataByCode($this->code);
+        $widgetData = Widget::getArray($this->code);
         $image = '';
         $UploadFile = array_get($requestData, $fieldName);
         if ($UploadFile instanceof UploadedFile) {

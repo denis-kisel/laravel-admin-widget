@@ -10,7 +10,8 @@ Via Composer
 $ composer require denis-kisel/laravel-admin-widget
 ```
 
-Add service provider in the config/app.php file
+Add service provider in the config/app.php file. Optional for laravel5.4+ 
+
 ``` php
 /*
  * Package Service Providers...
@@ -23,16 +24,55 @@ Make publish
 $  php artisan vendor:publish --provider="DenisKisel\\LaravelAdminWidget\\LaravelAdminWidgetServiceProvider"
 ```
 
-## Usage
-Make widget by code(underscore)
+Run migration
 ``` bash
-$ php artisan admin:widget slider
+$  php artisan migrate
 ```
 
-Fill generated file by path: app/Admin/Controllers/Widgets/SliderWidget.php. You can view example file in the same dir.
+## Usage
+### Make Widget
+Command: `php artisan admin:widget {name}`
 
-
-Widget link. You can replace link in the app/Admin/routes.php file.
 ``` bash
-site.com/admin/slider-widget
+$ php artisan admin:widget Slider
+```
+
+This command will generate file by path: app/Admin/Controllers/Widgets/SliderWidget.php.  
+And will add route `site.com/admin/slider-widget`
+
+### Get Widget Data
+Get widget data as array:
+
+``` php
+<?php
+
+use DenisKisel\LaravelAdminWidget\Facade\Widget;
+
+
+Widget::getArray($code)
+```
+
+Get widget data as collection
+
+``` php
+<?php
+
+use DenisKisel\LaravelAdminWidget\Facade\Widget;
+
+
+Widget::getCollection($code)
+```
+
+
+### Put Custom Data
+
+Also possible put custom data
+
+``` php
+<?php
+
+use DenisKisel\LaravelAdminWidget\Facade\Widget;
+
+
+Widget::put($code, $data) #Store or update widget
 ```

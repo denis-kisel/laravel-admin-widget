@@ -6,6 +6,7 @@ namespace DenisKisel\LaravelAdminWidget\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class MakeAdminWidget extends Command
 {
@@ -31,8 +32,8 @@ class MakeAdminWidget extends Command
         $stub = File::get(__DIR__ . '/stubs/widget.stub');
 
         $stub = str_replace('{class}', $this->className(), $stub);
-        $stub = str_replace('{code}', $this->argument('code'), $stub);
-        $stub = str_replace('{name}', $this->name(), $stub);
+        $stub = str_replace('{code}', Str::snake($this->argument('code')), $stub);
+        $stub = str_replace('{name}', Str::title($this->argument('code')), $stub);
 
         File::put($this->filePath(), $stub);
         $this->makeRoute();
@@ -40,25 +41,7 @@ class MakeAdminWidget extends Command
 
     protected function className()
     {
-        $nameParts = $this->nameParts();
-
-        $output = '';
-        foreach ($nameParts as $namePart) {
-            $output .= ucfirst($namePart);
-        }
-        return $output . 'Widget';
-    }
-
-    protected function name()
-    {
-        $nameParts = $this->nameParts();
-
-        $output = '';
-        foreach ($nameParts as $namePart) {
-            $output .= ucfirst($namePart) . ' ';
-        }
-
-        return substr($output, 0, -1);
+        return Str::studly($this->argument('code')) . 'Widget';
     }
 
     protected function filePath()
@@ -68,18 +51,13 @@ class MakeAdminWidget extends Command
 
     protected function widgetsPath()
     {
-        return __DIR__ . '/../../../../../app/Admin/Controllers/Widgets/';
-    }
-
-    protected function nameParts()
-    {
-        return explode('_', $this->argument('code'));
+        return app_path('Admin/Controllers/Widgets/');
     }
 
     protected function makeRoute()
     {
-        $routeName = str_replace('_', '-', $this->argument('code')) . '-widget';
-        $content = file_get_contents(__DIR__ . '/../../../../../app/Admin/routes.php');
+        $routeName = Str::kebab($this->argument('code')) . '-widget';
+        $content = file_get_contents(app_path('Admin/routes.php'));
 
         $replace = <<<EOF
     /*
@@ -93,7 +71,7 @@ EOF;
     \$router->resource('{$routeName}', 'Widgets\\\\{$this->className()}');
 EOF;
         $content = str_replace($replace, $replaceOn, $content);
-        file_put_contents(__DIR__ . '/../../../../../app/Admin/routes.php', $content);
+        file_put_contents(app_path('Admin/routes.php'), $content);
 
         $this->info('Route added: admin/' . $routeName);
 
