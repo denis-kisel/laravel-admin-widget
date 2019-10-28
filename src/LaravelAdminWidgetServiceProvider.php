@@ -3,7 +3,6 @@
 namespace DenisKisel\LaravelAdminWidget;
 
 use DenisKisel\LaravelAdminWidget\Commands\MakeAdminWidget;
-use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelAdminWidgetServiceProvider extends ServiceProvider
@@ -62,11 +61,11 @@ class LaravelAdminWidgetServiceProvider extends ServiceProvider
     {
         // Publishing example file
         $this->publishes([
-            __DIR__ . '/../resources/example/' => __DIR__ . '/../../../../app/Admin/Controllers/Widgets/',
+            __DIR__ . '/../resources/example/' => app_path('Admin/Controllers/Widgets/'),
         ]);
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => __DIR__ . '/../../../../database/migrations/',
+            __DIR__ . '/../database/migrations/create_widgets_table.php' => database_path('migrations/' . date('Y_m_d_His_') . 'create_widgets_table.php'),
         ]);
 
         $this->prepareRoute();
@@ -76,7 +75,7 @@ class LaravelAdminWidgetServiceProvider extends ServiceProvider
 
     protected function prepareRoute()
     {
-        $content = file_get_contents(__DIR__ . '/../../../../app/Admin/routes.php');
+        $content = file_get_contents(app_path('Admin/routes.php'));
 
         if (strpos($content, 'Widget routes') === false) {
             $replace = '], function (Router $router) {';
@@ -87,7 +86,7 @@ class LaravelAdminWidgetServiceProvider extends ServiceProvider
     */
 EOT;
             $content = str_replace($replace, $replaceOn, $content);
-            file_put_contents(__DIR__ . '/../../../../app/Admin/routes.php', $content);
+            file_put_contents(app_path('Admin/routes.php'), $content);
         }
     }
 }
