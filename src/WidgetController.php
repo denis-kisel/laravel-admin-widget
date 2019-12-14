@@ -4,6 +4,7 @@ namespace DenisKisel\LaravelAdminWidget;
 use App\Http\Controllers\Controller;
 use DenisKisel\LaravelAdminWidget\Facade\Widget;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 
 Class WidgetController extends Controller
 {
@@ -19,11 +20,11 @@ Class WidgetController extends Controller
     {
         $widgetData = Widget::getArray($this->code);
         $image = '';
-        $UploadFile = array_get($requestData, $fieldName);
+        $UploadFile = Arr::get($requestData, $fieldName);
         if ($UploadFile instanceof UploadedFile) {
             $image = $this->move($UploadFile);
-        } elseif(!empty(array_get($widgetData, $fieldName))) {
-            $image = array_get($widgetData, $fieldName);
+        } elseif(!empty(Arr::get($widgetData, $fieldName))) {
+            $image = Arr::get($widgetData, $fieldName);
         }
 
         return $image;
