@@ -77,6 +77,39 @@ use DenisKisel\LaravelAdminWidget\Facade\Widget;
 Widget::put($code, $data) #Store or update widget
 ```
 
+## Sortable items
+For Sortable Items I use jquery-ui lib.  
+{items} - Is NestedForm Key
+```php
+Admin::js('/js/admin/jquery-ui.min.js');
+Admin::script('$(function() {
+        $(\'.has-many-{items}-forms\').sortable();
+    });');
+```
+
+Live Example:
+```php
+public function form()
+    {
+        Admin::js('/js/admin/jquery-ui.min.js');
+        Admin::script('$(function() {
+                $(\'.has-many-items-forms\').sortable();
+            });');
+
+        $data = Widget::getArray($this->code);
+        $form = new \Encore\Admin\Widgets\Form($data);
+
+        $form->repeat('items', function (NestedForm $form) {
+            $form->textarea('title', __('admin.title'));
+            $form->image('image', __('admin.image'));
+        });
+
+        $form->action(url()->current());
+
+        return $form->render();
+    }
+```
+
 ## Fix Error
 `Call to a member function getKey()`  
 For fix this error, just run:
