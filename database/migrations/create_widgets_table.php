@@ -15,8 +15,8 @@ class CreateWidgetsTable extends Migration
     {
         Schema::create('widgets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('name')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });

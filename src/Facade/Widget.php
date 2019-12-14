@@ -12,14 +12,14 @@ class Widget
     public static function put($code, $data)
     {
         unset($data['_token']);
-        WidgetModel::whereCode($code)->delete();
-
-        $widget = new WidgetModel();
-        $widget->name = $data['name'] ?? '';
-        $widget->code = $code;
-        $widget->content = serialize($data);
-
-        $widget->save();
+        WidgetModel::whereCode($code)->updateOrCreate(
+            ['code' => $code],
+            [
+                'code' => $code,
+                'name' => $data['name'] ?? null,
+                'content' => serialize($data)
+            ]
+        );
     }
 
     public static function getArray($code)
