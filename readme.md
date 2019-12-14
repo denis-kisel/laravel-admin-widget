@@ -76,3 +76,11 @@ use DenisKisel\LaravelAdminWidget\Facade\Widget;
 
 Widget::put($code, $data) #Store or update widget
 ```
+
+## Fix Error
+`Call to a member function getKey()`  
+For fix this error, just run:
+```bash
+php artisan fix:nested_form
+```
+

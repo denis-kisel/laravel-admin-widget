@@ -2,6 +2,7 @@
 
 namespace DenisKisel\LaravelAdminWidget;
 
+use DenisKisel\LaravelAdminWidget\Commands\FixGetKeyNestedForm;
 use DenisKisel\LaravelAdminWidget\Commands\MakeAdminWidget;
 use Illuminate\Support\ServiceProvider;
 
@@ -9,6 +10,7 @@ class LaravelAdminWidgetServiceProvider extends ServiceProvider
 {
     protected $commands = [
         MakeAdminWidget::class,
+        FixGetKeyNestedForm::class
     ];
 
     /**
