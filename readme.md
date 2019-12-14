@@ -83,31 +83,31 @@ For Sortable Items I use jquery-ui lib.
 ```php
 Admin::js('/js/admin/jquery-ui.min.js');
 Admin::script('$(function() {
-        $(\'.has-many-{items}-forms\').sortable();
-    });');
+    $(\'.has-many-{items}-forms\').sortable();
+});');
 ```
 
 Live Example:
 ```php
 public function form()
-    {
-        Admin::js('/js/admin/jquery-ui.min.js');
-        Admin::script('$(function() {
-                $(\'.has-many-items-forms\').sortable();
-            });');
+{
+    Admin::js('/js/admin/jquery-ui.min.js');
+    Admin::script('$(function() {
+            $(\'.has-many-items-forms\').sortable();
+        });');
 
-        $data = Widget::getArray($this->code);
-        $form = new \Encore\Admin\Widgets\Form($data);
+    $data = Widget::getArray($this->code);
+    $form = new \Encore\Admin\Widgets\Form($data);
 
-        $form->repeat('items', function (NestedForm $form) {
-            $form->textarea('title', __('admin.title'));
-            $form->image('image', __('admin.image'));
-        });
+    $form->repeat('items', function (NestedForm $form) {
+        $form->textarea('title', __('admin.title'));
+        $form->image('image', __('admin.image'));
+    });
 
-        $form->action(url()->current());
+    $form->action(url()->current());
 
-        return $form->render();
-    }
+    return $form->render();
+}
 ```
 
 ## Fix Error
